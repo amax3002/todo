@@ -1,0 +1,13 @@
+<ul>
+  <% @task.errors.full_messages.each do |error| %>
+    <li><%= error %></li>
+  <% end %>
+</ul>
+
+<h2>Edit Task</h2>
+
+<form action="/tasks/<%= @task.id %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+
+  <%= erb :"tasks/_form.html" %>
+</form>

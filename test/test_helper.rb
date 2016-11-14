@@ -14,8 +14,10 @@ require_relative "../app"
 require_relative "../db/migrations/create_todos_table"
 
 begin
-  CreateTodosTableMigration.migrate(:down)
+  CreateUserTableMigration.migrate(:down)
+  CreateTaskTableMigration.migrate(:down)
 rescue ActiveRecord::StatementInvalid
 end
 
-CreateTodosTableMigration.migrate(:up)
+CreateUserTableMigration.migrate(:up)
+CreateTaskTableMigration.migrate(:up)

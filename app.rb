@@ -27,4 +27,9 @@ post "/tasks" do
   else
     erb :"tasks/new.html", layout: :"layout/application.html"
   end
+
+  get "/tasks/new" do
+    @task = Task.new
+    erb :"tasks/new.html", layout: :"layout/application.html"
+  end
 end
