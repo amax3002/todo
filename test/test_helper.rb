@@ -10,6 +10,7 @@ ActiveRecord::Base.establish_connection(
 
 require_relative "../task"
 require_relative "../user"
+require_relative "../app"
 require_relative "../db/migrations/create_todos_table"
 
 begin
