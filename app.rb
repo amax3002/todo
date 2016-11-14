@@ -10,8 +10,18 @@ get "/tasks" do
   erb :"tasks/index.html", layout: :"layout/application.html"
 end
 
+get "/tasks/new" do
+  @task = Task.new
+  erb :"tasks/new.html", layout: :"layout/application.html"
+end
+
+get "/tasks/:id" do
+  @task = Task.find(params["id"])
+  erb :"tasks/show.html", layout: :"layout/application.html"
+end
+
 get "/tasks/:name" do
-  @tasks = Task.find_by(name: params["name"])
+  @task = Task.find_by(name: params["name"])
   if @task.save
     redirect "/tasks"
   else
@@ -27,9 +37,26 @@ post "/tasks" do
   else
     erb :"tasks/new.html", layout: :"layout/application.html"
   end
+end
 
-  get "/tasks/new" do
-    @task = Task.new
-    erb :"tasks/new.html", layout: :"layout/application.html"
-  end
+get "/tasks/:id/edit" do
+  @task = Task.find(params["id"])
+  erb :"tasks/edit.html", layout: :"layout/application.html"
+end
+
+patch "/tasks/:id" do
+  @task = Task.find(params["id"])
+  @task.update(params["task"])
+  redirect "/tasks"
+end
+
+delete "/tasks/:id" do
+  @task = Task.find(params["id"])
+  @task.update(params["task"])
+  redirect "/tasks"
+end
+
+post "/tasks/search" do
+  @tasks = Task.where("name LIKE ?", "%#{params['q']}%")
+  erb :"tasks/index.html", layout: :"layout/application.html"
 end

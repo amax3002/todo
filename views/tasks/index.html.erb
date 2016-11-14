@@ -1,41 +1,60 @@
-<a href="/tasks/new" class='btn btn-success'>+ New Task</a>
+<a href="/tasks/new" class='btn btn-success'>+ New Animal</a>
 
-<table>
-  <tr>
-    <th>
-      Name
-    </th>
-    <th>
-      Due Date
-    </th>
-    <th>
-      Complete
-    </th>
-  </tr>
-  <% @tasks.each do |task| %>
+<% unless @tasks.empty? %>
+<table class="table">
+  <thead>
     <tr>
-      <td>
-        <%= task.name %>
-      </td>
-      <td>
-        <%= task.due_date %>
-      </td>
-      <td>
-        <%= task.complete %>
-      </td>
+      <th>
+        Task
+      </th>
+      <th>
+        Due Date
+      </th>
+      <th colspan="2">
+        Complete
+      </th>
     </tr>
+  </thead>
+  <% @tasks.each do |task| %>
+  <tr>
+    <td>
+      <a href="/tasks/<%= task.id %>"><%= task.name %></a>
+    </td>
+    <td>
+      <%= task.due_date %>
+    </td>
+    <td>
+      <%= task.complete %>
+    </td>
+    <td>
+      <div class="btn-toolbar">
+
+        <a class='btn btn-default btn-xs' href="/tasks/<%= task.id %>/edit">Edit</a>
+
+
+        <form action="/tasks/<%= task.id %>" method="POST">
+          <input type="hidden" name="_method" value="delete">
+          <input class='btn btn-danger btn-xs' type="submit" value="Delete">
+        </form>
+      </div>
+    </td>
+  </tr>
   <% end %>
 </table>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-<form action="/tasks" method="post">
-  <input type="text" name="name" value="">
-  <input type="date" name="due_date" value="">
-  <input type="text" name="complete" value="">
-  <input type="submit" value="Save">
+<form class="" action="/tasks/search" method="post">
+  <div class="input-group">
+    <input type="text" name="q" class="form-control" placeholder="Search for task">
+    <span class="input-group-btn">
+      <button class="btn btn-default" type="submit">
+        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+      </button>
+    </span>
+  </div>
 </form>
+<% else %>
+<div class="alert alert-info">
+  <strong>Sorry</strong>
+  No tasks :(
+</div>
+
+<% end %>
