@@ -32,6 +32,7 @@ end
 
 post "/tasks" do
   @task = Task.new(params)
+  @task.complete = false
   if @task.save
     redirect "/tasks"
   else
@@ -52,11 +53,17 @@ end
 
 delete "/tasks/:id" do
   @task = Task.find(params["id"])
-  @task.update(params["task"])
+  @task.destroy
   redirect "/tasks"
 end
 
 post "/tasks/search" do
   @tasks = Task.where("name LIKE ?", "%#{params['q']}%")
+  erb :"tasks/index.html", layout: :"layout/application.html"
+end
+
+post "/next" do
+  @tasks = Task.where({"complete" => false}).sample
+  @tasks = [@tasks]
   erb :"tasks/index.html", layout: :"layout/application.html"
 end

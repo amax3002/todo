@@ -1,4 +1,4 @@
-<a href="/tasks/new" class='btn btn-success'>+ New Animal</a>
+<a href="/tasks/new" class='btn btn-success'>+ New Task</a>
 
 <% unless @tasks.empty? %>
 <table class="table">
@@ -51,6 +51,15 @@
     </span>
   </div>
 </form>
+
+<form class="" action="/next" method="post">
+  <div class="checkbox">
+    <input class='btn btn-warning btn-xs' type="submit" value="Random Tasks">
+    <span class="input-group-btn">
+    </span>
+  </div>
+</form>
+
 <% else %>
 <div class="alert alert-info">
   <strong>Sorry</strong>
