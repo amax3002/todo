@@ -1,7 +1,13 @@
+ENV["RACK_ENV"]="test"
+
+require 'simplecov'
+SimpleCov.start
+
 require "minitest/autorun"
 require "minitest/pride"
 require "active_record"
 require "pry"
+require "rack/test"
 
 ActiveRecord::Base.establish_connection(
   adapter: "sqlite3",

@@ -6,3 +6,4 @@ gem "sinatra", "2.0.0.beta2"
 gem "pry"
 gem "pry-byebug"
 gem "sqlite3"
+gem 'simplecov', :require => false, :group => :test
