@@ -20,16 +20,6 @@ get "/tasks/:id" do
   erb :"tasks/show.html", layout: :"layout/application.html"
 end
 
-get "/tasks/:name" do
-  @task = Task.find_by(name: params["name"])
-  if @task.save
-    redirect "/tasks"
-  else
-    status(404)
-    { message: "Task #{params["name"]} not found!" }.to_json
-  end
-end
-
 post "/tasks" do
   @task = Task.new(params)
   @task.complete = false

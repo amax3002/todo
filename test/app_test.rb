@@ -53,25 +53,19 @@ class AppTest < Minitest::Test
   def test_delete_task
     task = new_task!
     delete "/tasks/#{task.id}"
-    assert_equal task.id, nil
-  end
-
-  def test_get_task_by_name
-    task = new_task!
-    get "/tasks/#{task.name}"
-    assert_equal task.name, last_response.body
+    assert_equal Task.find_by(id: task.id), nil
   end
 
   def test_search_task
     task = new_task!
-    post "/tasks/search", params: [task.id]
-    assert_equal task.name, last_response.body
+    post "/tasks/search", params: { q: task.name }
+    assert_match task.name, last_response.body
   end
 
-  def test_get_specific_task_by_id_patch
+  def test_edit_task_name
     task = new_task!
-    patch "/tasks/#{task.id}"
-    assert_match task.name, last_response.body
+    patch "/tasks/#{task.id}", task: {name: "Ben"}
+    assert_equal Task.find_by(id: task.id).name, "Ben"
   end
 
   def test_next_task
