@@ -12,7 +12,7 @@ class AppTest < Minitest::Test
   end
 
   def test_can_read_single_employee
-    get "/tasks/#{Task.last}"
+    post "/tasks", params: { task: {name: "Alex"}}
     assert last_response.ok?
     assert_equal "Alex", JSON.parse(last_response.body)["name"]
   end

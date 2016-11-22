@@ -11,7 +11,8 @@ ActiveRecord::Base.establish_connection(
 require_relative "../task"
 require_relative "../user"
 require_relative "../app"
-require_relative "../db/migrations/create_todos_table"
+require_relative "../db/migrations/create_tasks_table"
+require_relative "../db/migrations/create_users_table"
 
 begin
   CreateUserTableMigration.migrate(:down)
